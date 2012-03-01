@@ -1,3 +1,6 @@
+import java.awt.Color;
+import java.awt.Container;
+import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -15,9 +18,9 @@ import javax.swing.JTextField;
 /*
  * The translator class written by mcgeep
  */
-public class Translator extends JFrame
+public class Translator extends JFrame implements ActionListener
 {
-	private JFrame frame;
+
 	private JButton translate;
 	private JTextField input;
 	private JTextField output;
@@ -30,31 +33,24 @@ public class Translator extends JFrame
 	// window destroyer
 	// add listner
 
-	public class WindowsExit extends WindowAdapter
-	{
-		public void windowCLosing(WindowEvent e)
-		{
-			System.exit(0);
-		}
-	}
-
-	private void Translator()
+	private Translator()
 	{
 		setSize(WIDTH, HEIGHT);
 
-		frame = new JFrame();
-		WindowsExit listener = new WindowsExit();
-		ActionListener buttonListener = new ActionListener()
-		{
-			@Override
-			public void actionPerformed(ActionEvent arg0)
-			{
-				translate();
+		loadDictionary();
+		Container contentPane = getContentPane();
+		contentPane.setBackground(Color.GRAY);
+		contentPane.setLayout(new FlowLayout());
+		
+		translate = new JButton("Translate");
+		translate.addActionListener(this);
+		contentPane.add(translate);
+		
+		input=new JTextField("Enter input text here");
+		contentPane.add(input);
+		output=new JTextField("Enter output text here");
+		contentPane.add(output);
 
-			}
-		};
-
-		translate.addActionListener(buttonListener);
 	}
 
 	// performed if action.command equals translate, translate
@@ -108,7 +104,17 @@ public class Translator extends JFrame
 	public static void main(String[] args)
 	{
 		Translator translateGui = new Translator();
-		translateGui.show();
+		translateGui.setVisible(true);
+	}
+
+	public void actionPerformed(ActionEvent e)
+	{
+		String actionCommand = e.getActionCommand();
+		if (actionCommand.equals("Translate"))
+		{
+			translate();
+		}
+
 	}
 
 }

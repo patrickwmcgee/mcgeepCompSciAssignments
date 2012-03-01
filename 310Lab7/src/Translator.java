@@ -8,22 +8,23 @@ import java.io.IOException;
 import java.util.Properties;
 
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 /*
  * The translator class written by mcgeep
  */
-public class Translator
+public class Translator extends JFrame
 {
-	private JPanel panel;
+	private JFrame frame;
 	private JButton translate;
 	private JTextField input;
 	private JTextField output;
 	private Properties table;
-	private int width;
-	private int height;
-	private int numberOfCharacters;
+	public static final int WIDTH = 400;
+	public static final int HEIGHT = 300;
+	public static final int NUMBER_OF_CHAR = 20;
 
 	// set size
 	// window destroyer
@@ -39,10 +40,13 @@ public class Translator
 
 	private void Translator()
 	{
-		panel = new JPanel();
-		
+		setSize(WIDTH, HEIGHT);
+
+		frame = new JFrame();
+		WindowsExit listener = new WindowsExit();
 		ActionListener buttonListener = new ActionListener()
 		{
+			@Override
 			public void actionPerformed(ActionEvent arg0)
 			{
 				translate();
@@ -100,10 +104,11 @@ public class Translator
 
 		output.setText(translationOutput);
 	}
+
 	public static void main(String[] args)
 	{
 		Translator translateGui = new Translator();
-		
+		translateGui.show();
 	}
 
 }

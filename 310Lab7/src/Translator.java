@@ -4,9 +4,11 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Properties;
 
 import javax.swing.JButton;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 /*
@@ -14,7 +16,7 @@ import javax.swing.JTextField;
  */
 public class Translator
 {
-
+	private JPanel panel;
 	private JButton translate;
 	private JTextField input;
 	private JTextField output;
@@ -26,18 +28,19 @@ public class Translator
 	// set size
 	// window destroyer
 	// add listner
-	
-	
-	
+
 	public class WindowsExit extends WindowAdapter
 	{
-		public void windowCLosing (WindowEvent e)
+		public void windowCLosing(WindowEvent e)
 		{
 			System.exit(0);
 		}
 	}
+
 	private void Translator()
 	{
+		panel = new JPanel();
+		
 		ActionListener buttonListener = new ActionListener()
 		{
 			public void actionPerformed(ActionEvent arg0)
@@ -55,41 +58,52 @@ public class Translator
 	private void loadDictionary()
 	{
 		table = new Properties();
+
 		try
 		{
 			FileInputStream input = new FileInputStream("dictionary.txt");
+			table.load(input);
+			input.close();
 		}
-		catch (FileNotFoundException e)
+		catch (IOException e)
 		{
 			output.setText("Error in loading dictionary.txt");
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		// create a new table of properties
-		// open the file with file stream
-		// /table load
-		// close the input
 
-		// for exception "output error"
 	}
+
+	// create a new table of properties
+	// open the file with file stream
+	// /table load
+	// close the input
+
+	// for exception "output error"
 
 	private void translate()
 	{
 		String inputMessage = input.getText();
 		String translationWord;
-		String translationOutput="";
-		String[] words=inputMessage.split(" ");
+		String translationOutput = "";
+		String[] words = inputMessage.split(" ");
 		// create an array using split
 
 		for (String word : words)
 		{
-			translationWord=table.getProperty(word);
-			if(translationWord!=null)
-				translationOutput+=(translationWord);
+			translationWord = table.getProperty(word);
+			if (translationWord != null)
+				translationOutput += (translationWord);
 			else
-				translationOutput+= word + "";
+				translationOutput += word + "";
 		}
-		
+
 		output.setText(translationOutput);
+	}
+	public static void main(String[] args)
+	{
+		Translator translateGui = new Translator();
+		
 	}
 
 }

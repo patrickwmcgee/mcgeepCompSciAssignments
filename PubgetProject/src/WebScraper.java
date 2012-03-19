@@ -57,6 +57,8 @@ public class WebScraper
 		try
 		{
 			pdfPath = get_path_from_page(abstractPath);
+			System.out.println("The abstract path is: " + abstractPath);
+			System.out.println("The pdf path is: " + pdfPath);
 		}
 		catch (IOException e)
 		{
@@ -76,34 +78,23 @@ public class WebScraper
 		Scanner input = new Scanner(System.in);
 		int volume, issue, startPage;
 		String currentLine;
-		Boolean continueYesNo = true;
-		while (continueYesNo == true)
-		{
-			System.out.print("Enter desired volume: ");
-			currentLine = input.nextLine();
-			volume = Integer.parseInt(currentLine);
+		
+		System.out.print("Enter desired volume: ");
+		currentLine = input.nextLine();
+		volume = Integer.parseInt(currentLine);
 
-			System.out.print("Enter desired issue: ");
-			currentLine = input.nextLine();
-			issue = Integer.parseInt(currentLine);
+		System.out.print("Enter desired issue: ");
+		currentLine = input.nextLine();
+		issue = Integer.parseInt(currentLine);
 
-			System.out.print("Enter desired start page: ");
-			currentLine = input.nextLine();
-			startPage = Integer.parseInt(currentLine);
+		System.out.print("Enter desired start page: ");
+		currentLine = input.nextLine();
+		startPage = Integer.parseInt(currentLine);
 
-			System.out.println(scraper.get_pdf_path(volume, issue, startPage));
+		scraper.get_pdf_path(volume, issue, startPage);
 
-			System.out.println("Would you like to look up another pdf? Enter Y for yes and N for no");
-			currentLine = input.nextLine();
-			if (currentLine == "N" || currentLine == "n")
-			{
-				continueYesNo = false;
-			}
-
-		}
-
+	
 		// System.out.println(scraper.get_pdf_path(2,1,13));
-
 		// System.out.println(scraper.get_pdf_path(2,2,150));
 	}
 

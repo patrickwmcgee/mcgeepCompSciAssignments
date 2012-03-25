@@ -45,22 +45,12 @@ public class BinaryNode<T>
 
 	public boolean hasLeft()
 	{
-		if (this.left != null)
-		{
-			return true;
-		}
-		else
-			return false;
+		return (left != null);
 	}
 
 	public boolean hasRight()
 	{
-		if (this.right != null)
-		{
-			return true;
-		}
-		else
-			return false;
+		return (right != null);
 	}
 
 	public boolean isLeaf()
@@ -74,4 +64,27 @@ public class BinaryNode<T>
 			return false;
 		}
 	}
+	public int getHeight()
+	{
+		int leftNumber = 0;
+		int rightNumber=0;
+		if(this==null)
+		{
+			return 0;
+		}
+		else if(this.hasLeft())
+		{
+			leftNumber=left.getHeight();
+		}
+		else if ( this.hasRight())
+		{
+			rightNumber= right.getHeight();
+		}
+		
+		return 1 + Math.max(leftNumber, rightNumber);
+	}
+	
+	
+	
+	
 }

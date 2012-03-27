@@ -1,4 +1,5 @@
 package lab9;
+
 /*
  * BinaryNode class written by Patrick McGee
  * 
@@ -128,6 +129,32 @@ public class BinaryNode<T>
 		}
 
 		return numLeaves;
+	}
+
+	public BinaryNode<T> copy(BinaryNode<T> copyRoot)
+	{
+		BinaryNode<T> newRoot = null;
+		if (copyRoot == null)
+		{
+			return null;
+		}
+		else
+		{
+			newRoot.setData(copyRoot.getData());
+			newRoot.setLeft(copyRoot.getLeft());
+			newRoot.setRight(copyRoot.getRight());
+			if(copyRoot.hasLeft())
+			{
+				copy(copyRoot.getLeft());
+			}
+			if(copyRoot.hasRight())
+			{
+				copy(copyRoot.getRight());
+			}
+		}
+		
+			return newRoot;
+			
 	}
 
 }

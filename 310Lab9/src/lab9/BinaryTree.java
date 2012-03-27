@@ -1,20 +1,22 @@
+package lab9;
+
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.NoSuchElementException;
 import java.util.Queue;
 
-public class BinaryTree2<T>
+public class BinaryTree<T>
 {
 	private BinaryNode<T> root;
 	private BinaryNode<T> currentNode;
 
-	public BinaryTree2(BinaryNode<T> root)
+	public BinaryTree(BinaryNode<T> root)
 	{
 		this.root = root;
 		currentNode = root;
 	}
 
-	public BinaryTree2()
+	public BinaryTree()
 	{
 		this.root = null;
 		currentNode = null;

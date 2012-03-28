@@ -90,19 +90,12 @@ public class BinaryTree<T>
 		return root.getNumLeaves();
 	}
 
-	public BinaryTree<T> copy(BinaryTree<T> copyTree)
+	public BinaryTree<T> copy()
 	{
-		BinaryTree<T> newTree = new BinaryTree();
-		BinaryNode<T> newRoot = null;
-		if (copyTree.getRoot() == null)
-		{
-			return newTree;
-		}
+		if(isEmpty())
+			return(new BinaryTree<T>());
 		else
-		{
-			newTree.setRoot(newRoot.copy(copyTree.getRoot()));
-			return newTree;
-		}
+			return(new BinaryTree<T>(root.copy()));
 	}
 
 	private class LevelOrderIterator implements Iterator<T>
@@ -127,9 +120,9 @@ public class BinaryTree<T>
 				BinaryNode<T> leftChild = nextNode.getLeft();
 				BinaryNode<T> rightChild = nextNode.getRight();
 
-				if (!nextNode.hasRight())
+				if (leftChild!=null)
 				{
-					
+					nodeQueue.add(leftChild);
 				}
 			}
 			else
@@ -184,7 +177,7 @@ public class BinaryTree<T>
 		System.out.println("The number of nodes is: " + binaryTree.getNumNodes());
 		
 		BinaryTree<Integer> newTree=new BinaryTree();
-		newTree.copy(binaryTree);
+	newTree.copy();
 		// System.out.println("The number of leaves is: " +
 		// binaryTree.getNumLeaves());
 	}

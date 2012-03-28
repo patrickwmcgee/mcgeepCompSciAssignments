@@ -75,39 +75,117 @@ public class BinaryTree<T>
 		}
 	}
 
-//	private class LevelOrderIterator implements Iterator<T>
-//	{
-//		private Queue<BinaryNode<T>> nodeQueue;
-//
-//		public LevelOrderIterator()
-//		{
-//			nodeQueue = new LinkedList<BinaryNode<T>>();
-//			if (root != null)
-//			{
-//
-//			}
-//		}
-//
-//		public T next()
-//		{
-//			BinaryNode<T> nextNode;
-//			if (hasNext())
-//			{
-//				nextNode = nodeQueue.remove();
-//				BinaryNode<T> leftChild=nextNode.getLeft();
-//				BinaryNode<T> rightChild=nextNode.getRight();
-//				
-//				if(!rightChild)
-//				{
-//					
-//				}
-//			}
-//			else
-//			{
-//				throw new NoSuchElementException();
-//			}
-//			return nextNode.getData();
-//		}
-//
-//	}
+	public int getHeight()
+	{
+		return root.getHeight();
+	}
+
+	public int getNumNodes()
+	{
+		return root.getNumNodes();
+	}
+
+	public int getNumLeaves()
+	{
+		return root.getNumLeaves();
+	}
+
+	public BinaryTree<T> copy(BinaryTree<T> copyTree)
+	{
+		BinaryTree<T> newTree = new BinaryTree();
+		BinaryNode<T> newRoot = null;
+		if (copyTree.getRoot() == null)
+		{
+			return newTree;
+		}
+		else
+		{
+			newTree.setRoot(newRoot.copy(copyTree.getRoot()));
+			return newTree;
+		}
+	}
+
+	private class LevelOrderIterator implements Iterator<T>
+	{
+		private Queue<BinaryNode<T>> nodeQueue;
+
+		public LevelOrderIterator()
+		{
+			nodeQueue = new LinkedList<BinaryNode<T>>();
+			if (root != null)
+			{
+					nodeQueue.add(root);
+			}
+		}
+
+		public T next()
+		{
+			BinaryNode<T> nextNode;
+			if (hasNext())
+			{
+				nextNode = nodeQueue.remove();
+				BinaryNode<T> leftChild = nextNode.getLeft();
+				BinaryNode<T> rightChild = nextNode.getRight();
+
+				if (!nextNode.hasRight())
+				{
+					
+				}
+			}
+			else
+			{
+				throw new NoSuchElementException();
+			}
+			return nextNode.getData();
+		}
+
+		@Override
+		public boolean hasNext()
+		{
+			// TODO Auto-generated method stub
+			return false;
+		}
+
+		@Override
+		public void remove()
+		{
+			// TODO Auto-generated method stub
+
+		}
+
+	}
+
+	public static void main(String args[])
+	{
+		BinaryTree<Integer> binaryTree = new BinaryTree(new BinaryNode(15));
+
+		binaryTree.getRoot().setLeft(new BinaryNode(7));
+		binaryTree.getRoot().setRight(new BinaryNode(30));
+
+		binaryTree.getRoot().getLeft().setLeft(new BinaryNode(4));
+		binaryTree.getRoot().getLeft().getLeft().setLeft(new BinaryNode(1));
+		binaryTree.getRoot().getLeft().getLeft().setRight(new BinaryNode(6));
+
+		binaryTree.getRoot().getLeft().setRight(new BinaryNode(12));
+		binaryTree.getRoot().getLeft().getRight().setLeft(new BinaryNode(10));
+		binaryTree.getRoot().getLeft().getRight().setRight(new BinaryNode(14));
+
+		binaryTree.getRoot().getRight().setLeft(new BinaryNode(23));
+		binaryTree.getRoot().getRight().getLeft().setLeft(new BinaryNode(19));
+		binaryTree.getRoot().getRight().getLeft().setRight(new BinaryNode(27));
+
+		binaryTree.getRoot().getRight().setRight(new BinaryNode(45));
+		binaryTree.getRoot().getRight().getRight().setLeft(new BinaryNode(36));
+		binaryTree.getRoot().getRight().getRight().setRight(new BinaryNode(50));
+
+		// levelorderTraverse(binaryTree.getRoot());
+		System.out.println("The height of the tree is: " + binaryTree.getHeight());
+
+		System.out.println("The number of nodes is: " + binaryTree.getNumNodes());
+		
+		BinaryTree<Integer> newTree=new BinaryTree();
+		newTree.copy(binaryTree);
+		// System.out.println("The number of leaves is: " +
+		// binaryTree.getNumLeaves());
+	}
 }

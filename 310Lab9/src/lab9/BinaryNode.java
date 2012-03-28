@@ -96,15 +96,15 @@ public class BinaryNode<T>
 		{
 			return 0;
 		}
-		else if (this.hasLeft())
+		if (this.hasLeft())
 		{
-			leftNumber = left.getNumNodes();
+			leftNumber = 1 + left.getNumNodes();
 		}
-		else if (this.hasRight())
+		if (this.hasRight())
 		{
-			rightNumber = right.getNumNodes();
+			rightNumber = 1 + right.getNumNodes();
 		}
-		return leftNumber + rightNumber;
+		return leftNumber + rightNumber ;
 
 	}
 
@@ -119,13 +119,13 @@ public class BinaryNode<T>
 		{
 			return 1;
 		}
-		else if (this.hasLeft())
+		else if (this.hasLeft() == true)
 		{
-			numLeaves = this.getNumLeaves();
+			numLeaves += this.getNumLeaves();
 		}
 		else if (this.hasRight())
 		{
-			numLeaves = this.getNumLeaves();
+			numLeaves += this.getNumLeaves();
 		}
 
 		return numLeaves;
@@ -143,18 +143,18 @@ public class BinaryNode<T>
 			newRoot.setData(copyRoot.getData());
 			newRoot.setLeft(copyRoot.getLeft());
 			newRoot.setRight(copyRoot.getRight());
-			if(copyRoot.hasLeft())
+			if (copyRoot.hasLeft())
 			{
 				copy(copyRoot.getLeft());
 			}
-			if(copyRoot.hasRight())
+			if (copyRoot.hasRight())
 			{
 				copy(copyRoot.getRight());
 			}
 		}
-		
-			return newRoot;
-			
+
+		return newRoot;
+
 	}
 
 }

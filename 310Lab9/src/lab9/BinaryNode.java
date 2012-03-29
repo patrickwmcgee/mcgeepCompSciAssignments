@@ -117,15 +117,15 @@ public class BinaryNode<T>
 		{
 			return 0;
 		}
-		else if (!this.hasLeft() & !this.hasRight())
+		else if (this.isLeaf())
 		{
 			return 1;
 		}
-		else if (this.hasLeft() == true)
+		if (this.hasLeft() == true)
 		{
 			leftNumberLeaves += left.getNumLeaves();
 		}
-		else if (this.hasRight())
+		if (this.hasRight())
 		{
 			rightNumberLeaves = right.getNumLeaves();
 		}

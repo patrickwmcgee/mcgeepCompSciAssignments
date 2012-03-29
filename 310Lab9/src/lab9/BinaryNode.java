@@ -111,8 +111,7 @@ public class BinaryNode<T>
 
 	public int getNumLeaves()
 	{
-		int rightNumberLeaves = 0;
-		int leftNumberLeaves = 0;
+		
 		if (this == null)
 		{
 			return 0;
@@ -121,6 +120,9 @@ public class BinaryNode<T>
 		{
 			return 1;
 		}
+		int rightNumberLeaves = 0;
+		int leftNumberLeaves = 0;
+		
 		if (this.hasLeft() == true)
 		{
 			leftNumberLeaves += left.getNumLeaves();

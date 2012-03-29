@@ -1,3 +1,7 @@
+/*
+ * BinaryTree.java
+ * written by mcgeep for Lab9
+ */
 package lab9;
 
 import java.util.Iterator;
@@ -65,7 +69,7 @@ public class BinaryTree<T>
 
 	public boolean isEmpty()
 	{
-		if (currentNode == null)
+		if (root == null)
 		{
 			return true;
 		}
@@ -124,107 +128,57 @@ public class BinaryTree<T>
 		this.setRoot(null);
 	}
 
-	public class LevelOrderIterator implements Iterator<BinaryNode<T>>
+	public LevelOrderIterator getIterator()
 	{
-		BinaryNode<T> lastNode;
+		return new LevelOrderIterator();
+	}
+
+	private class LevelOrderIterator implements Iterator<T>
+	{
+		BinaryNode<T> next;
 		Queue<BinaryNode<T>> nodeQueue = new LinkedList<BinaryNode<T>>();
 
-		public LevelOrderIterator(BinaryNode<T> root)
+		public LevelOrderIterator()
 		{
-			lastNode = root;
-			nodeQueue.offer(lastNode);
+			next = root;
+			nodeQueue.add(next);
 		}
 
-	
 		public boolean hasNext()
 		{
-			return (!lastNode.isLeaf() || !nodeQueue.isEmpty());
+			return !nodeQueue.isEmpty();
 		}
 
-		
-		public BinaryNode<T> next()
+		public T next()
 		{
-			if (nodeQueue.isEmpty())
+
+			if (hasNext())
 			{
-				if (lastNode != null && !lastNode.isLeaf())
+				next = nodeQueue.poll();
+				if (next.hasLeft()==true)
 				{
-					if (lastNode.hasLeft())
-						nodeQueue.offer(lastNode.getLeft());
-					if (lastNode.hasRight())
-						nodeQueue.offer(lastNode.getRight());
+					nodeQueue.add(next.getLeft());
 				}
-				else
+
+				if (next.hasRight()==true)
 				{
-					return null;
+					nodeQueue.add(next.getRight());
 				}
 			}
-			lastNode = nodeQueue.poll();
-			if (lastNode != null && !lastNode.isLeaf())
+			else
 			{
-				if (lastNode.hasLeft())
-					nodeQueue.offer(lastNode.getLeft());
-				if (lastNode.hasRight())
-					nodeQueue.offer(lastNode.getRight());
+				throw new NoSuchElementException();
 			}
-			return lastNode;
+			return next.getData();
 		}
 
 		@Override
 		public void remove()
 		{
+			throw new UnsupportedOperationException();
 		}
 
 	}
-
-	// private class LevelOrderIterator implements Iterator<T>
-	// {
-	// private Queue<BinaryNode<T>> nodeQueue;
-	//
-	// public LevelOrderIterator()
-	// {
-	// nodeQueue = new LinkedList<BinaryNode<T>>();
-	// if (root != null)
-	// {
-	// nodeQueue.add(root);
-	// }
-	// }
-	//
-	// public T next()
-	// {
-	// BinaryNode<T> nextNode;
-	// if (hasNext())
-	// {
-	// nextNode = nodeQueue.remove();
-	// BinaryNode<T> leftChild = nextNode.getLeft();
-	// BinaryNode<T> rightChild = nextNode.getRight();
-	//
-	// if (leftChild != null)
-	// {
-	// nodeQueue.add(leftChild);
-	// }
-	// }
-	// else
-	// {
-	// throw new NoSuchElementException();
-	// }
-	// return nextNode.getData();
-	// }
-	//
-	// @Override
-	// public boolean hasNext()
-	// {
-	// // TODO Auto-generated method stub
-	// return false;
-	// }
-	//
-	// @Override
-	// public void remove()
-	// {
-	// // TODO Auto-generated method stub
-	//
-	// }
-	//
-	// }
 
 	public static void main(String args[])
 	{
@@ -250,6 +204,14 @@ public class BinaryTree<T>
 		binaryTree.getRoot().getRight().getRight().setRight(new BinaryNode(50));
 
 		// levelorderTraverse(binaryTree.getRoot());
+		Iterator iterator = binaryTree.getIterator();
+		System.out.print("Level order traverse: ");
+		while (iterator.hasNext() == true)
+		{
+			System.out.print(iterator.next() + " ");
+		}
+		System.out.println();
+
 		System.out.println("The height of the tree is: " + binaryTree.getHeight());
 
 		System.out.println("The number of nodes is: " + binaryTree.getNumNodes());
@@ -262,12 +224,33 @@ public class BinaryTree<T>
 
 		// clear the origional
 		binaryTree.clear();
-		System.out.println("After Clearing the tree");
+		System.out.println("After Clearing the origional tree");
+		System.out.println("Is the origional tree empty: " + (binaryTree.isEmpty() ? "Tree is empty" : "Tree is not empty"));
 		System.out.println("The height of the tree is: " + binaryTree.getHeight());
 
 		System.out.println("The number of nodes is: " + binaryTree.getNumNodes());
 
 		System.out.println("The number of leaves is: " + binaryTree.getNumLeaves());
+
+		System.out.println("Is the copied tree empty: " + (newTree.isEmpty() ? "Tree is empty" : "Tree is not empty"));
+
+		Iterator iterator2 = newTree.getIterator();
+		System.out.print("Level order traverse of copy tree: ");
+		while (iterator2.hasNext() == true)
+		{
+			System.out.print(iterator2.next() + " ");
+		}
+		iterator2 = newTree.getIterator();
 		// binaryTree.getNumLeaves());
+		System.out.print("Level order traverse: ");
+		System.out.println();
+		System.out.println("The height of the tree is: " + newTree.getHeight());
+
+		System.out.println("The number of nodes is: " + newTree.getNumNodes());
+
+		System.out.println("The number of leaves is: " + newTree.getNumLeaves());
+		System.out.println("Next: " + iterator2.next());
+		System.out.println("Next: " + iterator2.next());
+		System.out.println("Next: " + iterator2.next());
 	}
 }

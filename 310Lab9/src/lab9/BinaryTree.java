@@ -242,7 +242,6 @@ public class BinaryTree<T>
 		}
 		iterator2 = newTree.getIterator();
 		// binaryTree.getNumLeaves());
-		System.out.print("Level order traverse: ");
 		System.out.println();
 		System.out.println("The height of the tree is: " + newTree.getHeight());
 

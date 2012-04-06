@@ -1,19 +1,19 @@
 package generalTree;
+
 import java.util.ArrayList;
 import java.util.List;
-
 
 public class TreeNode<T>
 {
 	private T data;
 	private List<TreeNode<T>> children;
-	
+
 	public TreeNode()
 	{
-		data=null;
-		children=null;
+		data = null;
+		children = null;
 	}
-	
+
 	public TreeNode(T data, List<TreeNode<T>> children)
 	{
 		super();
@@ -23,8 +23,8 @@ public class TreeNode<T>
 
 	public TreeNode(T data)
 	{
-		this.data=data;
-		children=null;
+		this.data = data;
+		children = null;
 	}
 
 	public T getData()
@@ -46,34 +46,31 @@ public class TreeNode<T>
 	{
 		this.children = children;
 	}
+
 	public boolean hasChildren()
 	{
-		if(children==null)
-		{
-			return false;
-		}
-		else
-		{
-			return true;
-		}
+		return (children != null && !children.isEmpty());
 	}
+
 	public TreeNode<T> copy()
 	{
-		if(this==null)
+		if (this == null)
 			return null;
-		
-		TreeNode<T> newRoot=new TreeNode<T>(data);
-		
-		if(this.hasChildren())
+
+		TreeNode<T> newRoot = new TreeNode<T>(data);
+
+		if (this.hasChildren())
 		{
-			List<TreeNode<T>> listChildren = new ArrayList<TreeNode<T>>() ;
-			for(TreeNode<T> child: this.getChildren())
+			List<TreeNode<T>> listChildren = new ArrayList<TreeNode<T>>();
+			for (TreeNode<T> child : this.getChildren())
+			{
 				listChildren.add(child.copy());
-			
-					
+
+			}
+			newRoot.setChildren(listChildren);
 		}
-		
+
 		return newRoot;
 	}
-	
+
 }

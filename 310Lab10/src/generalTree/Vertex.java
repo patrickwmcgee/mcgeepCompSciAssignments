@@ -1,26 +1,35 @@
 package generalTree;
 
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 public class Vertex<T>
 {
-	ArrayList<Edge> edgeList = new ArrayList<Edge>();
+	ArrayList<Edge> edgeList ;
 	T label;
 
 	public Vertex(T label)
 	{
 		this.label = label;
-		edgeList = null;
+		edgeList = new ArrayList<Edge>();
+	}
+
+	boolean equals(Vertex<T> otherVertex)
+	{
+		boolean result = false;
+		if (this.getLabel() == otherVertex.getLabel())
+		{
+			result = true;
+		}
+		return result;
 	}
 
 	public boolean connect(Vertex<T> endVertex, double edgeWeight)
 	{
 		boolean isConnected = false;
 		boolean result = false;
-		
+
 		if (this.equals(endVertex))
 		{
 			isConnected = true;
@@ -29,21 +38,27 @@ public class Vertex<T>
 
 		if (!this.equals(endVertex))
 		{
-			for (Edge edge : edgeList)
+			if (edgeList != null)
 			{
-				if (edge.getEndVertex().equals(endVertex))
+				for (Edge edge : edgeList)
 				{
-					isConnected = true;
-					result=false;
+
+					if (edge.getEndVertex().equals(endVertex))
+					{
+						isConnected = true;
+						result = false;
+					}
+
 				}
 			}
+
+
 		}
-	
 
 		if (!isConnected)
 		{
 			edgeList.add(new Edge(endVertex, edgeWeight));
-			result=true;
+			result = true;
 		}
 		return result;
 
@@ -56,8 +71,15 @@ public class Vertex<T>
 
 	public void display()
 	{
+		System.out.print("From " + label + ": ");
+		for (Edge edge : edgeList)
+		{
+			System.out.print("[" + edge.getEndVertex().getLabel() + " " + edge.getWeight() + "]");
+		}
+		System.out.print("\n");
 
 	}
+
 	public class Edge
 	{
 		private Vertex<T> vertex;
